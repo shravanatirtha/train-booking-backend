@@ -16,7 +16,6 @@ const { db } = require("./models/Train");
 const authroutes = require("./routes/auth");
 app.use("/api", authroutes);
 //db server
-
 mongoose.connect(
     process.env.URI,
   {

@@ -1,10 +1,10 @@
 const Train = require("../models/Train");
-const { createJWT } = require("../utils/auth");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
+//home route
 exports.home = async (req, res) => {
   res.send("Train booking app");
 };
+//create train
 exports.createTrain = async (req, res, next) => {
   let { tname, from, to } = req.body;
   let errors = [];
@@ -23,7 +23,6 @@ exports.createTrain = async (req, res, next) => {
   }
 
   const train = await Train.findOne({ tname: tname });
-
   if (train) {
     return res
       .status(422)
@@ -34,7 +33,6 @@ exports.createTrain = async (req, res, next) => {
       from: from,
       to: to,
     });
-
     train
       .save()
       .then((response) => {
@@ -50,22 +48,20 @@ exports.createTrain = async (req, res, next) => {
       });
   }
 };
-
+//get train
 exports.getTrain = (req, res) => {
   let { from, to } = req.body;
   let errors = [];
   if (!from) {
     errors.push({ from: "required" });
   }
-
   if (!to) {
     errors.push({ to: "required" });
   }
   if (errors.length > 0) {
     return res.status(422).json({ errors: errors });
   }
-  Train
-    .findOne({ to: to })
+  Train.find({ from:from , to: to })
     .then((train) => {
       if (!train) {
         return res.status(400).json({
