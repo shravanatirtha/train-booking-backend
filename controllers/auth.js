@@ -6,10 +6,10 @@ exports.home = async (req, res) => {
 };
 //create train
 exports.createTrain = async (req, res, next) => {
-  let { tname, from, to } = req.body;
+  let { name, from, to } = req.body;
   let errors = [];
-  if (!tname) {
-    errors.push({ tname: "required" });
+  if (!name) {
+    errors.push({ name: "required" });
   }
   if (!from) {
     errors.push({ from: "required" });
@@ -22,14 +22,14 @@ exports.createTrain = async (req, res, next) => {
     return res.status(422).json({ errors: errors });
   }
 
-  const train = await Train.findOne({ tname: tname });
+  const train = await Train.findOne({ name: name });
   if (train) {
     return res
       .status(422)
       .json({ errors: [{ train: "Train already exists" }] });
   } else {
     const train = new Train({
-      tname: tname,
+      name: name,
       from: from,
       to: to,
     });
