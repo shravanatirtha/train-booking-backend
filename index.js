@@ -12,27 +12,25 @@ const PORT = 8000;
 app.listen(PORT, () => {
   console.log(`Om namo narayanaya http://localhost:${PORT}`);
 });
-const { db } = require("./models/Train");
 const authroutes = require("./routes/auth");
 app.use("/api", authroutes);
 //db server
 mongoose.connect(
-    process.env.URI,
+  process.env.URI,
   {
-    
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true,
   },
-  async (err, db) => {
+  async (err) => {
     if (err) {
       console.error(err);
     }
   }
 );
-//db connection
+//Database connection
 let connection = mongoose.connection;
 connection.on("connected", async () => {
-  console.log("db connected");
+  console.log("Db connected");
 });

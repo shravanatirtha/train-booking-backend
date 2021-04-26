@@ -1,24 +1,26 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-let userSchema = new Schema(
+let trainSchema = new Schema(
   {
-    name: {
+    trainId: {
       type: String,
       required: true,
     },
-    from: {
+    trainName: {
       type: String,
       required: true,
     },
-    to: {
-      type: String,
-      required: true,
-    }
+    quota:[
+      {
+        type:String,
+        required:true
+      }
+    ]
   },
   {
     timestamps: true,
-    collection: "trains"
+    collection: "train",
   }
 );
 
-module.exports = mongoose.model("Train", userSchema);
+module.exports = mongoose.model("Train", trainSchema);
