@@ -264,16 +264,16 @@ exports.getClass = async (req, res) => {
       trainId: trainId,
     });
 
-    if (!details) {
+    if (!details.length) {
       return res.status(400).json({
         error: [{ details: "not found" }],
       });
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: details,
-      });
-    }
+    } //else {
+    return res.status(200).json({
+      success: true,
+      message: details,
+    });
+    // }
   } catch (err) {
     res.status(500).json({
       errors: [{ error: err }],
@@ -296,16 +296,16 @@ exports.getDate = async (req, res) => {
       setDate: giveDate,
     });
 
-    if (!details) {
+    if (!details.length) {
       return res.status(400).json({
         error: [{ details: "not found" }],
       });
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: details,
-      });
-    }
+    } // else {
+    return res.status(200).json({
+      success: true,
+      message: details,
+    });
+    // }
   } catch (err) {
     res.status(500).json({
       errors: [{ error: err }],
