@@ -13,10 +13,6 @@ const scheduleSchema = mongoose.Schema(
       },
     ],
   },
-  {
-    timestamps: true,
-    collection: "schedule",
-  }
-);
+ );
 
 module.exports = mongoose.model("Schedule", scheduleSchema);

@@ -12,10 +12,10 @@ const {
   home,
 } = require("../controllers/auth");
 router.get("/", home);
-router.post("/getDate", getDate);
-router.post("/getJourney", getJourney);
-router.post("/getStation", getStation);
-router.post("/getClass", getClass);
+router.get("/getDate", getDate);
+router.get("/getJourney", getJourney);
+router.get("/getStation", getStation);
+router.get("/getClass", getClass);
 router.post("/createClass", createClass);
 router.post("/createRoute", createRoute);
 router.post("/createDate", createDate);

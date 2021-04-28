@@ -19,10 +19,6 @@ const classSchema = mongoose.Schema(
       },
     ],
   },
-  {
-    timestamps: true,
-    collection: "classes",
-  }
-);
+ );
 
 module.exports = mongoose.model("Classes", classSchema);

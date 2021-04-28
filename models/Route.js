@@ -21,10 +21,6 @@ const routeSchema = mongoose.Schema(
       },
     ],
   },
-  {
-    timestamps: true,
-    collection: "route",
-  }
 );
 
 module.exports = mongoose.model("Route", routeSchema);

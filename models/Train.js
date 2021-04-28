@@ -17,10 +17,6 @@ let trainSchema = new Schema(
       }
     ]
   },
-  {
-    timestamps: true,
-    collection: "train",
-  }
-);
+ );
 
 module.exports = mongoose.model("Train", trainSchema);

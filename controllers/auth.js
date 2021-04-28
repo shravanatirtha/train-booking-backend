@@ -196,20 +196,18 @@ exports.getJourney = async (req, res) => {
     }
 
     const details = await Route.find({
-      source: source,
-      destination: destination,
+      stations: [source, destination],
     });
 
-    if (!details) {
+    if (!details.length) {
       return res.status(400).json({
         error: [{ details: "not found" }],
       });
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: details,
-      });
     }
+    return res.status(200).json({
+      success: true,
+      message: details,
+    });
   } catch (err) {
     res.status(500).json({
       errors: [{ error: err }],
@@ -219,29 +217,32 @@ exports.getJourney = async (req, res) => {
 //get station details
 exports.getStation = async (req, res) => {
   try {
-    let { stations } = req.body;
+    let { source, destination } = req.query;
     let errors = [];
-    if (!stations) {
-      errors.push({ stations: "required" });
+    if (!source) {
+      errors.push({ source: "required" });
+    }
+    if (!destination) {
+      errors.push({ destination: "required" });
     }
     if (errors.length > 0) {
       return res.status(422).json({ errors: errors });
     }
 
     const details = await Route.find({
-      stations: stations,
+      stations: source,
+      stations: destination,
     });
 
-    if (!details) {
+    if (!details.length) {
       return res.status(400).json({
         error: [{ details: "not found" }],
       });
-    } else {
-      return res.status(200).json({
-        success: true,
-        message: details,
-      });
     }
+    return res.status(200).json({
+      success: true,
+      message: ["Journey from:", source, "Journey to:", destination, details],
+    });
   } catch (err) {
     res.status(500).json({
       errors: [{ error: err }],
@@ -249,31 +250,30 @@ exports.getStation = async (req, res) => {
   }
 };
 
-//get schedule
+//get class details
 exports.getClass = async (req, res) => {
   try {
-    let { trainId } = req.body;
+    let { fair } = req.query;
     let errors = [];
-    if (!trainId) {
-      errors.push({ trainId: "required" });
+    if (!fair) {
+      errors.push({ fair: "required" });
     }
     if (errors.length > 0) {
       return res.status(422).json({ errors: errors });
     }
     const details = await Classes.find({
-      trainId: trainId,
+      "classDetails.fair": fair,
     });
 
     if (!details.length) {
       return res.status(400).json({
         error: [{ details: "not found" }],
       });
-    } //else {
+    }
     return res.status(200).json({
       success: true,
       message: details,
     });
-    // }
   } catch (err) {
     res.status(500).json({
       errors: [{ error: err }],
@@ -284,28 +284,27 @@ exports.getClass = async (req, res) => {
 //get schedule
 exports.getDate = async (req, res) => {
   try {
-    let { giveDate } = req.body;
+    let { searchDate } = req.query;
     let errors = [];
-    if (!giveDate) {
-      errors.push({ giveDate: "required" });
+    if (!searchDate) {
+      errors.push({ searchDate: "required" });
     }
     if (errors.length > 0) {
       return res.status(422).json({ errors: errors });
     }
     const details = await Schedule.find({
-      setDate: giveDate,
+      setDate: searchDate,
     });
 
     if (!details.length) {
       return res.status(400).json({
         error: [{ details: "not found" }],
       });
-    } // else {
+    }
     return res.status(200).json({
       success: true,
       message: details,
     });
-    // }
   } catch (err) {
     res.status(500).json({
       errors: [{ error: err }],
